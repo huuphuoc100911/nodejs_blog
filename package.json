@@ -21,6 +21,14 @@
     "url": "https://github.com/huuphuoc100911/nodejs_blog/issues"
   },
   "homepage": "https://github.com/huuphuoc100911/nodejs_blog#readme",
+  "lint-staged": {
+    "src/**/*.{js,json,scss}": "prettier --single-quote --tab-width 4 --trailing-comma all --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
@@ -28,6 +36,9 @@
     "nodemon": "^3.0.1"
   },
   "devDependencies": {
-    "morgan": "^1.10.0"
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.1",
+    "morgan": "^1.10.0",
+    "prettier": "^3.0.3"
   }
 }

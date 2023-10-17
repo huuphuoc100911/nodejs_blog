@@ -2,9 +2,10 @@
   "name": "blog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start" : "nodemon --inspect index.js",
+    "start": "nodemon --inspect src/index.js",
+    "watch": "node-sass --watch src/resources/scss --output src/public/css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +23,11 @@
   "homepage": "https://github.com/huuphuoc100911/nodejs_blog#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "node-sass": "^9.0.0",
     "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
   }
 }

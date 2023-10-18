@@ -1,7 +1,8 @@
 const express = require('express');
 const { engine } = require('express-handlebars');
 const morgan = require('morgan');
-var path = require('path');
+const methodOverride = require('method-override');
+const path = require('path');
 const app = express();
 const port = 3000;
 
@@ -24,8 +25,20 @@ app.use(express.json());
 
 // app.use(morgan("combined"));
 
+// override with the X-HTTP-Method-Override header in the request
+app.use(methodOverride('_method'));
+
 //Template Engine
-app.engine('hbs', engine({ extname: '.hbs', defaultLayout: 'main' }));
+app.engine(
+    'hbs',
+    engine({
+        extname: '.hbs',
+        helpers: {
+            sum: (a, b) => a + b,
+        },
+        defaultLayout: 'main',
+    }),
+);
 app.set('view engine', 'hbs');
 //Config thư mục views
 app.set('views', path.join(__dirname, 'resources', 'views'));

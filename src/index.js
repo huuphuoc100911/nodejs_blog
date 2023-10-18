@@ -2,6 +2,7 @@ const express = require('express');
 const { engine } = require('express-handlebars');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
+const { convertDatetimeToDateTime } = require('./utils/mongose');
 const path = require('path');
 const app = express();
 const port = 3000;
@@ -35,6 +36,8 @@ app.engine(
         extname: '.hbs',
         helpers: {
             sum: (a, b) => a + b,
+            convertDatetimeToDate: (dateTime) =>
+                convertDatetimeToDateTime(dateTime),
         },
         defaultLayout: 'main',
     }),

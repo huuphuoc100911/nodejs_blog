@@ -11,7 +11,6 @@ module.exports = {
     },
 
     sortable(field, sort) {
-        console.log(sort);
         const sortType = field === sort.column ? sort.type : 'default';
 
         const icons = {
@@ -26,8 +25,8 @@ module.exports = {
             desc: 'asc',
         };
 
-        const icon = icons[sort.type];
-        const type = types[sort.type];
+        const icon = icons[sortType];
+        const type = types[sortType];
 
         return `<a href="?_sort&column=${field}&type=${type}">
         <i class="${icon}" aria-hidden="true"></i>

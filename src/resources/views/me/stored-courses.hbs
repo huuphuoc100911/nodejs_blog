@@ -3,7 +3,7 @@
         <h3 class="col-9">Khóa học của tôi</h3>
         <div class="col-3">
             <a href="/me/trash/courses" class="btn btn-info">
-                <span><i class="fas fa-trash" aria-hidden="true"></i>Khóa học đã xóa <span
+                <span><i class="fa fa-trash" aria-hidden="true"></i> Khóa học đã xóa <span
                         class="badge badge-center rounded-pill badge-danger">{{ deletedCount }}</span></span>
             </a>
         </div>
@@ -27,9 +27,15 @@
             <tr>
                 <th></th>
                 <th>#</th>
-                <th>Tên</th>
+                <th>
+                    Tên khóa học
+                    {{{ sortable "name" _sort}}}
+                </th>
                 <th>Mô tả</th>
-                <th>Thời gian tạo</th>
+                <th style="width: 200px;">
+                    Thời gian tạo 
+                    {{{ sortable "createdAt" _sort}}}
+                </th>
                 <th></th>
                 <th></th>
             </tr>

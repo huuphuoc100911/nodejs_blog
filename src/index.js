@@ -2,7 +2,8 @@ const express = require('express');
 const { engine } = require('express-handlebars');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
-const { convertDatetimeToDateTime } = require('./utils/mongose');
+const { convertDatetimeToDateTime, sortable } = require('./utils/index');
+const SortMiddleware = require('./app/middlewares/SortMiddleware');
 const path = require('path');
 const app = express();
 const port = 3000;
@@ -29,6 +30,9 @@ app.use(express.json());
 // override with the X-HTTP-Method-Override header in the request
 app.use(methodOverride('_method'));
 
+//Middleware
+app.use(SortMiddleware);
+
 //Template Engine
 app.engine(
     'hbs',
@@ -38,6 +42,7 @@ app.engine(
             sum: (a, b) => a + b,
             convertDatetimeToDate: (dateTime) =>
                 convertDatetimeToDateTime(dateTime),
+            sortable: (field, sort) => sortable(field, sort),
         },
         defaultLayout: 'main',
     }),

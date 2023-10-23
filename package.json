@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/huuphuoc100911/nodejs_blog#readme",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
     "method-override": "^3.0.0",

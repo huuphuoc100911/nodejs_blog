@@ -1,6 +1,7 @@
 const express = require('express');
 const { engine } = require('express-handlebars');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const { convertDatetimeToDateTime, sortable } = require('./utils/index');
 const SortMiddleware = require('./app/middlewares/SortMiddleware');
@@ -14,6 +15,11 @@ db.connect();
 
 //Config thư mục public
 app.use(express.static(path.join(__dirname, 'public')));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 
 //Middleware, display post formData
 app.use(

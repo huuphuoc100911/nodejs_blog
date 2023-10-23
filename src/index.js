@@ -2,6 +2,7 @@ const express = require('express');
 const { engine } = require('express-handlebars');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const methodOverride = require('method-override');
 const { convertDatetimeToDateTime, sortable } = require('./utils/index');
 const SortMiddleware = require('./app/middlewares/SortMiddleware');
@@ -12,6 +13,17 @@ const port = 3000;
 const route = require('./routes');
 const db = require('./config/db');
 db.connect();
+
+app.use(
+    session({
+        secret: 'its my secret',
+        resave: true,
+        saveUninitialized: true,
+        cookie: {
+            maxAge: 6000000, // 1 hour (in milliseconds)
+        },
+    }),
+);
 
 //Config thư mục public
 app.use(express.static(path.join(__dirname, 'public')));

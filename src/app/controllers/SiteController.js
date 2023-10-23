@@ -3,6 +3,7 @@ const { multipleMongooseToObject } = require('../../utils/mongose');
 
 class SiteController {
     index(req, res, next) {
+        console.log(req.session);
         Course.find()
             .then((courses) => {
                 res.render('home', {

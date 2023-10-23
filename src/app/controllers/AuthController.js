@@ -3,6 +3,20 @@ const { multipleMongooseToObject } = require('../../utils/mongose');
 
 class AuthController {
     register(req, res, next) {
+        res.render('auth/register');
+    }
+
+    login(req, res, next) {
+        res.render('auth/login');
+    }
+
+    logout(req, res, next) {
+        req.session.checkLogin = null;
+
+        res.redirect('/login');
+    }
+
+    postRegister(req, res, next) {
         var email = req.body.email;
         var password = req.body.password;
 
@@ -11,22 +25,24 @@ class AuthController {
         })
             .then((data) => {
                 if (data) {
-                    res.json('Tài khoản đã tồn tại');
+                    res.render('auth/register', {
+                        error: 'Người dùng đã tồn tại',
+                    });
                 } else {
                     Account.create({
                         email: email,
                         password: password,
                     }).then((data) => {
-                        res.json('Tạo tài khoản thành công');
+                        res.redirect('/login');
                     });
                 }
             })
             .catch((error) => {
-                res.status(500).json('Tạo tài khoản không thành công');
+                res.status(500).json('Tạo tài khoản không thành cônga');
             });
     }
 
-    login(req, res, next) {
+    postLogin(req, res, next) {
         var email = req.body.email;
         var password = req.body.password;
 
@@ -36,7 +52,9 @@ class AuthController {
         })
             .then((data) => {
                 if (data) {
-                    res.json('Đăng nhập thành công');
+                    req.session.userLogin = data;
+                    req.session.checkLogin = true;
+                    res.redirect('/home');
                 } else {
                     res.status(300).json('Account không đúng');
                 }

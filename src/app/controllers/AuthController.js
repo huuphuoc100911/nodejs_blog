@@ -1,5 +1,6 @@
 const Account = require('../models/Account');
 const { multipleMongooseToObject } = require('../../utils/mongose');
+var jwt = require('jsonwebtoken');
 
 class AuthController {
     register(req, res, next) {
@@ -52,8 +53,12 @@ class AuthController {
         })
             .then((data) => {
                 if (data) {
+                    var token = jwt.sign({ _id: data._id }, 'check-login');
+
                     req.session.userLogin = data;
                     req.session.checkLogin = true;
+                    req.session.token = token;
+
                     res.redirect('/home');
                 } else {
                     res.status(300).json('Account không đúng');

@@ -1,7 +1,19 @@
+var jwt = require('jsonwebtoken');
+
 module.exports = function AuthMiddleware(req, res, next) {
-    if (!req.session.checkLogin) {
+    try {
+        var token = req.session.token;
+        var checkToken = jwt.verify(token, 'check-login');
+        //   if (!req.session.checkLogin) {
+        //     res.redirect("/login");
+        //   }
+
+        if (!checkToken) {
+            res.redirect('/login');
+        }
+
+        next();
+    } catch (error) {
         res.redirect('/login');
     }
-
-    next();
 };

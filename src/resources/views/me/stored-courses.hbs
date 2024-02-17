@@ -1,3 +1,7 @@
+<div class="alert alert-success my-2" role="alert">
+    {{ createdSuccess }}{{ updatedSuccess }}
+
+</div>
 <form name="container-form" method="POST" action="/courses/handle-form-actions" class="mt-4">
     <div class="row">
         <h3 class="col-9">Khóa học của tôi</h3>
@@ -33,7 +37,7 @@
                 </th>
                 <th>Mô tả{{{ sortable "description" _sort}}}</th>
                 <th style="width: 200px;">
-                    Thời gian tạo 
+                    Thời gian tạo
                     {{{ sortable "createdAt" _sort}}}
                 </th>
                 <th></th>

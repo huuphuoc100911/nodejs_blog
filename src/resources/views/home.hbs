@@ -1,20 +1,25 @@
+{{#if loginSuccess}}
+<div class="alert alert-success my-2" role="alert">
+  {{ loginSuccess }}
+</div>
+{{/if}}
 <div class="mt-4">
   <div class="row">
     {{#each courses}}
-      <div class="col-sm-6 col-lg-4 my-2">
-        <div class="card">
+    <div class="col-sm-6 col-lg-4 my-2">
+      <div class="card">
+        <a href="/courses/{{slug}}">
+          <img class="card-img-top" src="{{image}}" alt="Card image" />
+        </a>
+        <div class="card-body">
           <a href="/courses/{{slug}}">
-            <img class="card-img-top" src="{{image}}" alt="Card image" />
+            <h4 class="card-title">{{name}}</h4>
           </a>
-          <div class="card-body">
-            <a href="/courses/{{slug}}">
-              <h4 class="card-title">{{name}}</h4>
-            </a>
-            <p class="card-text">{{description}}</p>
-            <a href="#" class="btn btn-primary">Mua khóa học</a>
-          </div>
+          <p class="card-text">{{description}}</p>
+          <a href="#" class="btn btn-primary">Mua khóa học</a>
         </div>
       </div>
+    </div>
     {{/each}}
   </div>
 </div>

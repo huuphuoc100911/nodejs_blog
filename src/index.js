@@ -1,28 +1,28 @@
-const express = require("express");
-const { engine } = require("express-handlebars");
+const express = require('express');
+const { engine } = require('express-handlebars');
 //Ghi log
-const morgan = require("morgan");
-const bodyParser = require("body-parser");
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 //Session
-const session = require("express-session");
-const flash = require("connect-flash");
-const methodOverride = require("method-override");
-const { convertDatetimeToDateTime, sortable } = require("./utils/index");
-const SortMiddleware = require("./app/middlewares/SortMiddleware");
-const path = require("path");
+const session = require('express-session');
+const flash = require('connect-flash');
+const methodOverride = require('method-override');
+const { convertDatetimeToDateTime, sortable } = require('./utils/index');
+const SortMiddleware = require('./app/middlewares/SortMiddleware');
+const path = require('path');
 // env
-require("dotenv").config();
+require('dotenv').config();
 
 const app = express();
 const port = 3000;
 
-const route = require("./routes");
-const db = require("./config/db");
+const route = require('./routes');
+const db = require('./config/db');
 db.connect();
 
 app.use(
     session({
-        secret: "its my secret",
+        secret: 'its my secret',
         resave: true,
         saveUninitialized: true,
         cookie: {
@@ -33,7 +33,7 @@ app.use(
 app.use(flash());
 
 //Config thư mục public
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // parse application/x-www-form-urlencoded
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -50,30 +50,31 @@ app.use(express.json());
 
 // XMLHttpRequest, fetch, axios
 
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 
 // override with the X-HTTP-Method-Override header in the request
-app.use(methodOverride("_method"));
+app.use(methodOverride('_method'));
 
 //Middleware
 app.use(SortMiddleware);
 
 //Template Engine
 app.engine(
-    "hbs",
+    'hbs',
     engine({
-        extname: ".hbs",
+        extname: '.hbs',
         helpers: {
             sum: (a, b) => a + b,
-            convertDatetimeToDate: (dateTime) => convertDatetimeToDateTime(dateTime),
+            convertDatetimeToDate: (dateTime) =>
+                convertDatetimeToDateTime(dateTime),
             sortable: (field, sort) => sortable(field, sort),
         },
-        defaultLayout: "main",
+        defaultLayout: 'main',
     })
 );
-app.set("view engine", "hbs");
+app.set('view engine', 'hbs');
 //Config thư mục views
-app.set("views", path.join(__dirname, "resources", "views"));
+app.set('views', path.join(__dirname, 'resources', 'views'));
 
 //Router init
 route(app);

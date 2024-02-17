@@ -1,13 +1,13 @@
-const Course = require("../models/Course");
-const { multipleMongooseToObject } = require("../../utils/mongose");
+const Course = require('../models/Course');
+const { multipleMongooseToObject } = require('../../utils/mongose');
 
 class SiteController {
     index(req, res, next) {
         Course.find()
             .then((courses) => {
-                const loginSuccess = req.flash("success");
+                const loginSuccess = req.flash('success');
                 console.log(loginSuccess);
-                res.render("home", {
+                res.render('home', {
                     courses: multipleMongooseToObject(courses),
                     loginSuccess,
                 });
@@ -16,7 +16,7 @@ class SiteController {
     }
 
     search(req, res) {
-        res.render("search");
+        res.render('search');
     }
 }
 

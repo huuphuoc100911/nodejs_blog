@@ -11,7 +11,7 @@ const Account = new Schema(
     },
     {
         timestamps: true,
-    },
+    }
 );
 
 mongoose.plugin(slug);

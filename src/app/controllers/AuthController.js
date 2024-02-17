@@ -1,21 +1,21 @@
-const Account = require("../models/Account");
-const { multipleMongooseToObject } = require("../../utils/mongose");
-const bcrypt = require("bcrypt");
-var jwt = require("jsonwebtoken");
+const Account = require('../models/Account');
+const { multipleMongooseToObject } = require('../../utils/mongose');
+const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
 
 class AuthController {
     register(req, res, next) {
-        res.render("auth/register");
+        res.render('auth/register');
     }
 
     login(req, res, next) {
-        res.render("auth/login");
+        res.render('auth/login');
     }
 
     logout(req, res, next) {
         req.session.checkLogin = null;
 
-        res.redirect("/login");
+        res.redirect('/login');
     }
 
     postRegister = async (req, res, next) => {
@@ -28,20 +28,20 @@ class AuthController {
         })
             .then((data) => {
                 if (data) {
-                    res.render("auth/register", {
-                        error: "Người dùng đã tồn tại",
+                    res.render('auth/register', {
+                        error: 'Người dùng đã tồn tại',
                     });
                 } else {
                     Account.create({
                         email: email,
                         password: hashedPassword,
                     }).then((data) => {
-                        res.redirect("/login");
+                        res.redirect('/login');
                     });
                 }
             })
             .catch((error) => {
-                res.status(500).json("Tạo tài khoản không thành công");
+                res.status(500).json('Tạo tài khoản không thành công');
             });
     };
 
@@ -57,18 +57,18 @@ class AuthController {
             console.log(passwordMatch);
 
             if (passwordMatch) {
-                var token = jwt.sign({ _id: user._id }, "check-login");
+                var token = jwt.sign({ _id: user._id }, 'check-login');
 
                 req.session.userLogin = { userLogin: user };
                 req.session.token = token;
-                req.flash("success", "Đăng nhập thành công");
+                req.flash('success', 'Đăng nhập thành công');
 
-                res.redirect("/home");
+                res.redirect('/home');
             } else {
-                res.status(300).json("Account không đúng");
+                res.status(300).json('Account không đúng');
             }
         } else {
-            res.status(500).json("Đăng nhập không thành công");
+            res.status(500).json('Đăng nhập không thành công');
         }
 
         // Account.findOne({

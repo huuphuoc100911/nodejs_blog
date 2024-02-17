@@ -1,6 +1,6 @@
-const Account = require("../../models/Account");
-const { multipleMongooseToObject } = require("../../../utils/mongose");
-const bcrypt = require("bcrypt");
+const Account = require('../../models/Account');
+const { multipleMongooseToObject } = require('../../../utils/mongose');
+const bcrypt = require('bcrypt');
 class ApiController {
     getListAccout(req, res, next) {
         Account.find()
@@ -8,7 +8,7 @@ class ApiController {
                 res.json(data);
             })
             .catch((error) => {
-                res.status(500).json("Lấy thông tin thất bại");
+                res.status(500).json('Lấy thông tin thất bại');
             });
     }
 
@@ -22,18 +22,18 @@ class ApiController {
         })
             .then((data) => {
                 if (data) {
-                    res.json("Người dùng đã tồn tại");
+                    res.json('Người dùng đã tồn tại');
                 } else {
                     Account.create({
                         email: email,
                         password: hashedPassword,
                     }).then((data) => {
-                        res.json("Tạo tài khoản thành công");
+                        res.json('Tạo tài khoản thành công');
                     });
                 }
             })
             .catch((error) => {
-                res.status(500).json("Tạo tài khoản không thành công");
+                res.status(500).json('Tạo tài khoản không thành công');
             });
     };
 
@@ -45,10 +45,10 @@ class ApiController {
             req.body
         )
             .then((data) => {
-                res.json("Cập nhật người dùng thành công");
+                res.json('Cập nhật người dùng thành công');
             })
             .catch((error) => {
-                res.status(500).json("Cập nhật người dùng thành công");
+                res.status(500).json('Cập nhật người dùng thành công');
             });
     }
 
@@ -57,10 +57,10 @@ class ApiController {
             _id: req.params.id,
         })
             .then((data) => {
-                res.json("Xóa người dùng thành công");
+                res.json('Xóa người dùng thành công');
             })
             .catch((error) => {
-                res.status(500).json("Xóa người dùng thành công");
+                res.status(500).json('Xóa người dùng thành công');
             });
     }
 }

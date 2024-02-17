@@ -14,7 +14,7 @@ const Course = new Schema(
     },
     {
         timestamps: true,
-    },
+    }
 );
 
 mongoose.plugin(slug);

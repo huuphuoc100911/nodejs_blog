@@ -61,6 +61,7 @@ class AuthController {
 
                 req.session.userLogin = { userLogin: user };
                 req.session.token = token;
+                req.flash("success", "Đăng nhập thành công");
 
                 res.redirect("/home");
             } else {
@@ -79,7 +80,7 @@ class AuthController {
 
         //             req.session.userLogin = data;
         //             req.session.checkLogin = true;
-        //             req.session.token = token;
+        //             req.session.token = token;`
 
         //             res.redirect("/home");
         //         } else {

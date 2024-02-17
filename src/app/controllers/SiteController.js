@@ -5,8 +5,11 @@ class SiteController {
     index(req, res, next) {
         Course.find()
             .then((courses) => {
+                const loginSuccess = req.flash("success");
+                console.log(loginSuccess);
                 res.render("home", {
                     courses: multipleMongooseToObject(courses),
+                    loginSuccess,
                 });
             })
             .catch(next);

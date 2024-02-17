@@ -1,13 +1,18 @@
 const express = require("express");
 const { engine } = require("express-handlebars");
+//Ghi log
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+//Session
 const session = require("express-session");
+const flash = require("connect-flash");
 const methodOverride = require("method-override");
 const { convertDatetimeToDateTime, sortable } = require("./utils/index");
 const SortMiddleware = require("./app/middlewares/SortMiddleware");
 const path = require("path");
+// env
 require("dotenv").config();
+
 const app = express();
 const port = 3000;
 
@@ -25,6 +30,7 @@ app.use(
         },
     })
 );
+app.use(flash());
 
 //Config thư mục public
 app.use(express.static(path.join(__dirname, "public")));
